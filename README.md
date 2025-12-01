@@ -1,77 +1,77 @@
-# Compressor de Arquivos de Texto (Codificação de Huffman)
+# Text File Compressor (Huffman Coding)
 
-Este é um projeto de implementação do algoritmo de Codificação de Huffman em Python. O objetivo é demonstrar conceitos fundamentais de Ciência da Computação, incluindo manipulação de bits, estruturas de dados (filas de prioridade/heaps) e serialização de dados binários.
+This project is a Python implementation of the Huffman Coding algorithm. Its goal is to demonstrate fundamental Computer Science concepts, including bit manipulation, data structures (priority queues/heaps), and binary data serialization.
 
-O script é capaz de comprimir arquivos de texto (.txt) em arquivos binários (.bin) significativamente menores e descomprimi-los de volta ao estado original sem perda de dados (lossless compression).
+The script is capable of compressing text files (.txt) into significantly smaller binary files (.bin) and decompressing them back to their original state without any data loss (lossless compression).
 
-🚀 Funcionalidades
+🚀 Features
 
-Análise de Frequência: Mapeia a ocorrência de cada caractere no texto.
+Frequency Analysis: Maps the occurrence of each character in the text.
 
-Árvore de Huffman: Constrói a árvore binária ideal para gerar os prefixos de bits.
+Huffman Tree: Constructs the optimal binary tree to generate bit prefixes.
 
-Padding de Bits: Gerencia o preenchimento necessário para alinhar os bits em bytes completos (8 bits).
+Bit Padding: Manages the necessary padding to align bits into full bytes (8 bits).
 
-Cabeçalho Inteligente: Armazena a tabela de frequências no início do arquivo binário para permitir a reconstrução da árvore durante a descompressão.
+Smart Header: Stores the frequency table at the beginning of the binary file to allow tree reconstruction during decompression.
 
-📋 Pré-requisitos
+📋 Prerequisites
 
-Python 3.6 ou superior.
+Python 3.6 or higher.
 
-Não há dependências externas. O projeto utiliza apenas bibliotecas nativas do Python:
+There are no external dependencies. The project uses only Python's standard libraries:
 
-heapq: Para a fila de prioridade.
+heapq: For the priority queue.
 
-os & sys: Para manipulação de arquivos e argumentos de linha de comando.
+os & sys: For file manipulation and command-line arguments.
 
-struct: Para empacotamento de dados binários (tamanho do header).
+struct: For binary data packing (header size).
 
-json: Para serializar o mapa de frequências no cabeçalho.
+json: For serializing the frequency map in the header.
 
-🛠️ Como Usar
+🛠️ How to Use
 
-O script funciona via linha de comando (CLI).
+The script works via the Command Line Interface (CLI).
 
-1. Comprimir um arquivo
+1. Compress a file
 
-python huffman_compressor.py compress <arquivo_entrada.txt> <arquivo_saida.bin>
-
-
-Exemplo:
-
-python huffman_compressor.py compress livro_grande.txt livro_comprimido.bin
+python huffman_compressor.py compress <input_file.txt> <output_file.bin>
 
 
-Saída esperada: O script mostrará o tamanho original, o tamanho comprimido e a porcentagem de economia.
+Example:
 
-2. Descomprimir um arquivo
-
-python huffman_compressor.py decompress <arquivo_entrada.bin> <arquivo_saida.txt>
+python huffman_compressor.py compress big_book.txt compressed_book.bin
 
 
-Exemplo:
+Expected Output: The script will show the original size, compressed size, and the compression percentage.
 
-python huffman_compressor.py decompress livro_comprimido.bin livro_recuperado.txt
+2. Decompress a file
+
+python huffman_compressor.py decompress <input_file.bin> <output_file.txt>
 
 
-🧠 Detalhes Técnicos da Implementação
+Example:
 
-Para quem está estudando o código, aqui estão os pontos cruciais de atenção:
+python huffman_compressor.py decompress compressed_book.bin recovered_book.txt
 
-Estrutura do Arquivo Binário (.bin)
 
-O arquivo gerado não é apenas uma sopa de bits. Ele segue uma estrutura rigorosa para garantir que possa ser lido depois:
+🧠 Technical Implementation Details
 
-Header Size (4 bytes): Um inteiro (Big Endian) que diz quantos bytes o cabeçalho JSON ocupa.
+For those studying the code, here are the crucial points to pay attention to:
 
-Header (JSON): O mapa de frequências (ex: {"a": 10, "b": 5}). Necessário para reconstruir a árvore.
+Binary File Structure (.bin)
 
-Content: O texto comprimido em bits.
+The generated file is not just a soup of bits. It follows a strict structure to ensure it can be read later:
 
-Padding (Preenchimento)
+Header Size (4 bytes): An integer (Big Endian) that states how many bytes the JSON header occupies.
 
-Como os sistemas operacionais gravam dados em Bytes (8 bits) e a compressão de Huffman gera sequências de tamanho variável (ex: 13 bits), o script adiciona "zeros" extras ao final para fechar o byte.
+Header (JSON): The frequency map (e.g., {"a": 10, "b": 5}). Necessary to reconstruct the tree.
 
-O primeiro byte do conteúdo comprimido armazena um número inteiro indicando quantos bits de "padding" foram adicionados ao final, para que eles possam ser descartados na descompressão.
+Content: The compressed text in bits.
 
-Autor: Gerado via Gemini
+Padding
+
+Since operating systems write data in Bytes (8 bits) and Huffman compression generates variable-length sequences (e.g., 13 bits), the script adds extra "zeros" at the end to complete the byte.
+
+The first byte of the compressed content stores an integer indicating how many "padding" bits were added to the end, so they can be discarded during decompression.
+
+Author: Generated via Gemini
